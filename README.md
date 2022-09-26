@@ -1,19 +1,19 @@
 # Bachelorthesis
 
-Die Cloud (Cloud Computing) weist einen immer größer werdenden Stellenwert in der Wirtschaft auf. Durch die zahlreichen Möglichkeiten, die sich durch die Nutzung einer Cloud ergeben, beschäftigen sich immer mehr Unternehmen mit diesem Thema.
+The cloud (cloud computing) is becoming increasingly important in the economy. Due to the numerous possibilities that arise from the use of a cloud, more and more companies are dealing with this topic.
 
-Ein großes Problem, vor allem deutscher Unternehmen, ist der Datenschutz. Sensible Daten dürfen nicht in die Cloud geladen und sollen weiterhin eigenständig verwaltet und geschützt werden. Viele Unternehmen sind auf ihre bisherige Infrastruktur angewiesen und werden diese nicht komplett in die Cloud migrieren. Dies kann rechtliche, firmenpolitische oder strategische Gründe haben.
+A major problem, especially for German companies, is data protection. Sensitive data must not be loaded into the cloud and should continue to be managed and protected independently. Many companies rely on their existing infrastructure and will not migrate it completely to the cloud. This may be for legal, corporate policy or strategic reasons.
 
-Trotzdem bietet die Cloud zahlreiche Funktionen, welche Unternehmen in ihre bestehende Infrastruktur oder Anwendungen einbinden möchten, um diese zu optimieren (siehe [9]).
+Nevertheless, the cloud offers numerous functions which companies would like to integrate into their existing infrastructure or applications in order to optimize them (see [9]).
 
-Andererseits dauert es Mitarbeitern in den entsprechenden Entwicklungsabteilungen oftmals zu lange, bis der Systemadministrator die geforderten Programme und Benutzer eingerichtet hat. Oft steht die erforderliche Hard- oder Software nicht zur Verfügung und muss erst beschafft werden oder es existieren interne Prozesse, welche die Beschaffung oder die Einrichtung verlangsamen oder gar verhindern. Somit ist keine schnelle und agile Entwicklung möglich.
+On the other hand, it often takes employees in the corresponding development departments too long for the system administrator to set up the required programs and users. Often, the required hardware or software is not available and must first be procured, or internal processes exist that slow down or even prevent procurement or setup. Thus, fast and agile development is not possible.
 
-Um dem entgegenzuwirken greifen Entwickler, um schnell einen Prototypen bauen zu können, oft auf eine vorhandene Cloud-Infrastruktur zurück. Diese ist schnell einsatzbereit und verursacht keine großen finanziellen Belastungen für das Unternehmen (siehe [22] und [11]).
+To counteract this, developers often fall back on an existing cloud infrastructure in order to be able to quickly build a prototype. This is quickly ready for use and does not cause a large financial burden for the company (see [22] and [11]).
 
-Außerdem können durch die Cloud Kosten gespart werden, welche ansonsten in die Vorhaltung von Ressourcen geflossen sind, um auftretende Engpässe zu umgehen. Desweiteren kann in der Cloud Software genutzt werden, die im Unternehmen gar nicht bereit steht oder das Know-How darüber nicht existiert.
+In addition, the cloud can save costs that would otherwise have been spent on the provision of resources in order to circumvent bottlenecks that occur. Furthermore, software can be used in the cloud that is not even available in the company or the know-how about it does not exist.
 
-Problematisch wird es, wenn ein gebauter Prototyp die Gremien überzeugen konnte und nun live gehen soll. Meist arbeiten Prototypen mit beispielhaften Daten, welche ab sofort durch reale Daten aus dem Rechenzentrum ersetzt werden müssen. Die Migration auf die Hard- und Software im Rechenzentrum ist allerdings nicht immer ohne Aufwand möglich. Außerdem funktioniert die Anwendung schon und soll nicht unnötig ein zweites Mal entwickelt werden.
+It becomes problematic when a prototype that has been built has been able to convince the committees and is now to go live. Most prototypes work with exemplary data, which must be replaced immediately by real data from the data center. However, migration to the hardware and software in the data center is not always possible without effort. Besides, the application already works and should not be developed a second time unnecessarily.
 
-Auch gibt es auf dem Mainframe Anwendungen oder Datenbestände in Datenbanken, welche einer Cloud-Anwendung als Service bereit gestellt werden sollen, um zum Beispiel Smartphone-Apps für die Mitarbeiter bereit zu stellen.
+There are also applications or data stocks in databases on the mainframe that are to be made available to a cloud application as a service, for example to provide smartphone apps for employees.
 
-Ziel dieser Arbeit ist es, eine Architektur zu entwickeln, die eine in der Cloud gebaute Anwendung sicher in die bestehende Infrastruktur einbinden kann.
+The goal of this work is to develop an architecture that can securely integrate an application built in the cloud into the existing infrastructure.
