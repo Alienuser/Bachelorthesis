@@ -1,0 +1,258 @@
+\chapter{Grundlagen}
+\label{cha:grundlagen}
+
+Im folgenden Kapitel sollen die elementaren Grundlagen beschrieben werden, die zum Verständnis der nachfolgenden Kapitel
+notwendig sind.
+
+Der erste Abschnitt befasst sich mit der reinen Cloud und einer Abwandlung davon, der Hybrid-Cloud.
+
+Der zweite Teil widmet sich den Produkten, die IBM in der Cloud und im Mainframebereich bietet. Dabei wird unter
+anderem auf die Konfiguration der Produkte und Laufzeitumgebungen eingegangen wie auch Programme und Konzepte, welche in
+der Arbeit benötigt werden, behandelt.
+
+Im letzten Teil des Kapitels folgt die Beschreibung einer Designidee bei Smartphone-Apps und allgemeine Konzepte der
+Softwareentwicklung.
+
+\section{Cloud}
+Der Begriff Cloud hat sich als Kurzform des Cloud Computing etabliert und versteht das Zusammenspiel von mehreren
+Servern. Die Server übernehmen Aufgaben, wie etwa die Datenspeicherung oder komplizierte Programmabläufe. Dabei erkennt
+der Cloud-Nutzer nicht, wie viele Server hinter der Cloud stecken oder wo diese sich befinden.
+
+Selbst wenn ein Server ausfällt, hat dies keine Auswirkungen auf das gesamte System, da die Anfragen und Aufgaben auf
+die anderen Systeme umgeleitet werden.
+
+Die Cloud zeichnet sich nach NIST \cite{online_grundlagen_cloudNIST} und \cite{online_grundlagen_cloud} durch fünf
+wesentliche Eigenschaften aus:
+
+\begin{itemize}
+    \item \textbf{On-Demand Self Service}   \\ Registrierte Nutzer können Resourcen selbstständig instantiieren und konfigurieren.
+    \item \textbf{Broad Network Access}     \\ Der Zugriff kann von verschiedenen Endgeräten erfolgen.
+    \item \textbf{Resource Pooling}         \\ Alle Resourcen des Anbieters werden gebündelt und nach Bedarf den Nutzern zugewiesen.
+    \item \textbf{Rapid Elasticity}         \\ Kapazitäten können nach Bedarf skaliert werden und stehen schnell und dynamisch zur Verfügung.
+    \item \textbf{Measured Service}         \\ Es existiert eine automatische Kontrolle der Ressourcen durch einen Zähler, welcher die Transparenz für den Anbieter und den Benutzer ermöglicht.
+\end{itemize}
+
+Neben vielen Cloud-Anbietern wie Amazon, SAP und Microsoft gibt es IBM mit \textbf{Bluemix}, welches im folgenden als Lösung für
+die prototypische Implementierung dient.
+
+\section{Hybrid-Cloud}
+Mit Hybrid-Clouds werden Mischformen der public und der private Cloud bezeichnet. So laufen bestimmte Services bei
+öffentlichen Anbietern über das Internet, während datenschutzkritische Anwendungen und Daten im Unternehmen betrieben
+und verarbeitet werden. Die Herausforderung liegt hier in der Trennung der Geschäftsprozesse in datenschutzkritische
+und -unkritische Workflows.
+
+Voraussetzung ist eine saubere und konsequente Klassifizierung der im Unternehmen vorhandenen und verarbeiteten
+Daten. Siehe dazu \cite{online_grundlagen_hybriddcloud}.
+
+\section{Bluemix}
+Bluemix ist die von IBM entwickelte Cloud-Platform. Über Bluemix greifen Entwickler auf mehr als 160 Cloud-Services zu,
+um mobile Apps und Webanwendungen zu entwickeln. In Bluemix gibt es zahlreiche Analysewerkzeuge sowie Services von
+Drittanbietern. Mit Watson Analytics lassen sich beispielsweise intelligente Systeme realisieren, die Daten
+kognitiv (also selbstlernend, ohne für die Problemlösungen programmiert zu sein) auswerten und für die Entscheidungsfindung
+aufbereiten.
+
+Bluemix unterstützt diverse integrierte DevOps-Dienste, um Cloud-Anwendungen zu erstellen, auszuführen, bereitzustellen
+und zu verwalten. Die Entwicklerplattform basiert auf der Technologie von Cloud Foundry und läuft auf IBMs
+Softlayer-Cloud-Infrastruktur. Sie unterstützt mehrere Programmiersprachen, einschließlich Java, Node.js, Go, PHP, Python,
+Ruby Sinatra, Ruby on Rails und kann auch andere Sprachen wie Scala durch den Einsatz von Buildpacks unterstützen
+\cite{online_grundlagen_bluemix}.
+
+Weitere Informationen über Bluemix können auf der Webseite\footnote{https://bluemix.net} gefunden werden.
+
+\subsection{Public, Dedicated und Local}
+Wie in \cite{online_grundlagen_bluemix_pdl} zu lesen, kann Bluemix in drei verschiedenen Varianten betrieben werden.
+
+\begin{itemize}
+    \item Bei \textbf{Public} werden Server, welche öffentlich im Internet zur Verfügung stehen, genutzt. Diese Variante wird gemeinhin als \path{Cloud} bezeichnet.
+    \item Bei \textbf{Privat} können hingegen nur Server genutzt werden, die expliziet für den Kunden eingerichtet wurden.
+    \item \textbf{Dedicated} ist ähnlich dem privaten Ansatz mit der Einschränkung, dass sich die Server im eigenen Rechenzentrum befinden.
+\end{itemize}
+
+Bei allen drei Formen wird das Management der Server sowie der Infrastruktur vollständig von IBM übernommen. Dies gilt
+sowohl für die Wartung, das Einspielen von Updates und Funktionserweiterungen als auch für den Support.
+
+Einige Services werden in den Bluemix Varianten \textit{Private} oder \textit{Dedicated} nicht angeboten und müssen über
+die Cloud bezogen werden. Dies setzt eine Verbindung ins Internet voraus.
+
+\subsection{Katalog}
+Der Bluemix Katalog umfasst alle Software-as-a-Service (SaaS) und Platform-as-a-Service (Paas) Produkte, die sich der
+Benutzer selbstständig instanziieren kann. Dabei werden die Produkte in drei größere Kategorien unterteilt.
+
+Bei \textbf{Infrastruktur} werden entweder echte oder virtualisierte Ressourcen zur Verfügung gestellt. Zum Beispiel
+handelt es sich dabei um \textit{vServer} oder ein \textit{z Systems}.
+
+Desweiteren gibt es \textbf{Apps}, welche Docker-Contrainer, Cloud Foundry Runtimes oder OpenWhisk Trigger zur Verfügung
+stellen.
+
+Die letzte große Kategorie, \textbf{Service}, beinhaltet Funktionen, welche in eine Applikation eingebunden werden können.
+Über diese Funktionen werden zum Beispiel Text2Speech Funktionen für eine Anwendung bereit gestellt.
+
+\subsection{Cloud Foundry}
+Cloud Foundry ist eine Open Source Platform as a service (PaaS) Lösung. Mit Hilfe von Cloud Foundry können Entwickler
+ihre Anwendungen bauen, hochladen und ausführen. Ein großer Vorteil von Cloud Foundry ist die nahezu grenzenlose
+Skalierbarkeit \cite{online_grundlagen_cloudfoundry}.
+
+Die Skalierbarkeit wird durch die Container-Architektur erreicht. Jeder Container beinhaltet eine eigene Anwendungsinstanz.
+Dabei wird sowohl eine horizontale als auch eine vertikale Skalierung unterstützt.
+
+Bei der horizontalen Skalierung werden zusätzliche Container gestartet oder gestoppt und ein Load Balancer vor die Container
+geschaltet. Bei der vertikalen Skalierung werden jeder Instanz individuell z.B. mehr oder weniger Arbeitsspeicher zugeteilt.
+
+Jede Cloud Foundry Instanz besitzt eine IPV4-Adresse wodurch es mittels A-Record (Zuordnung eines DNS-Namens zu IP-Adresse)
+möglich ist, eine eigene Domain mit der Anwendung zu verknüpfen.
+
+\section{Services}
+In Bluemix gibt es mehr als 160 Funktionen. Eine großer Bereich sind die Services, welche eine
+der drei Kategorien darstellt. Mit den Services können Applikationen durch vorgefertigte Funktionen erweitert werden.
+Eine Bilderkennung oder Text in Sprache umwandeln sind nur wenige Beispiele.
+
+\subsection{Secure Gateway}
+Mit dem Secure Gateway können verschiedene Netzwerke miteinander verbunden werden. Dazu wird eine sichere Verbindung
+zwischen Bluemix und einem anderen Netzwerk aufgebaut. Dies kann lokal im eigenen Rechenzentrum liegen oder in einer
+anderen Cloud. Siehe dazu auch \cite{online_grundlagen_securegateway}.
+
+Zur Verbindung wird ein Client im Zielnetzwerk installiert und anschließend eingerichtet.
+
+Ein wesentlicher Vorteil des Secure Gateways ist, dass sich der installierte Client auf den Bluemix-Service verbindet und
+nicht umgekehrt. Dies erleichtert die Konfiguration innerhalb des Unternehmensnetzwerkes, da z.B. keine feste IP-Adresse
+vorausgesetzt wird.
+
+\subsection{Service Broker}
+Durch einen Service Broker können Cloudanwendungen geschrieben werden, welche bestehende Services erweitern oder
+zusätzliche hinzufügen. Jeder Service in Bluemix besteht aus einem Service Broker.
+
+Die Cloud Foundry Foundation hat einen offenen Standart für Schnittstellen definiert, welcher von allen größeren
+Cloud-Anbietern eingehalten wird. Diesem \textit{Open Service Broker API} Projekt gehören diverse Firmen an. Mehr dazu
+unter \cite{online_grundlagen_servicebrokerapi}.
+
+Die Einrichtung eines Service Brokers in den eigenen Katalog erfolgt durch das Hinzufügen des Services in einen der zwei
+zur Verfügung stehenden Scopes (Siehe dazu \cite{online_grundlagen_servicebroker}).
+
+\subsection{Scopes}
+\label{sub:scopes}
+In Bluemix stehen zwei verschiedene Scopes (Bereiche) für einen Service Broker zur Verfügung.
+
+Im \textbf{Standard Broker} kann der Service Broker für alle Endkunden oder nur für einzelne Benutzergruppen bereitgestellt
+werden. In diesen Scope kann in der Regel nur der Administrator Service Broker hinzufügen.
+
+Im \textbf{Space-Scoped Broker} steht der Service Broker nur für Mitglieder der gleichen Organisation zur Verfügung. In
+diesen Scope kann jeder Benutzer einen eigenen Service Broker installieren und freigeben
+(Siehe auch \cite{online_grundlagen_servicebroker_scope}).
+
+\subsection{Toolchain}
+Bei einer Toolchain handelt es sich um ein Tool zur Verwaltung von Entwicklung, Bereitstellung sowie Überwachung einer
+Anwendung. Nach der Einrichtung einer Toolchain stehen verschiedene Services zur Verfügung, welche zum Beispiel eine Integration
+zu einem GitHub-Projekt ermöglichen.
+
+Mit einer eingerichteten Toolchain und einem verbundenen Git-Repository kann der Quelltext gebaut und auf einem System
+installiert werden. Bei der Toolchain handelt es sich unter anderem um ein \textit{Continuous Integration}-Tool (kurz CI)
+(Mehr unter \cite{online_grundlagen_toolchain}).
+
+\section{Mainframe}
+Mainframes bezeichnen leistungsfähige Großrechner, die in Rechenzentren installiert sind. Sie werden meist als
+Hintergrundrechner eingesetzt, wo sie zum Beispiel für die Massendatenverarbeitung zuständig sind.
+
+Mainframes sind immer dann sinnvoll, wenn eine Anwendung auf einem anderen Computer nicht lösbar ist oder wenn das Abarbeiten
+der Anwendung auf einem herkömmlichen Computer viel zu lange dauern würde (Siehe hierzu auch \cite{book_grundlagen_mainframe}).
+
+Die Einrichtung und Wartung eines Mainframes bedarf eines Grundverständnisses des Betriebssystems und dessen Architektur.
+
+Neben anderen Herstellern von Mainframes gibt es IBM mit \textbf{z Systems}, welches im Folgenden näher betrachtet wird.
+
+\subsection{z Systems}
+IBM z Systems ist der Name für alle Mainframes von IBM. Der Name wurde offiziell im April 2006 veröffentlicht und von da an
+ausschließlich genutzt. Vor allem durch die 64-Bit-Architektur zeichnet sich z Systems vom Vorgänger s/390 aus. Allerdings
+werden ältere Programme, die noch nicht für 64-Bit angepasst wurden, ebenfalls unterstützt (Mehr in \cite{book_grundlagen_zsystems}).
+
+\subsection{zOSMF}
+IBM z/OS Management Facility (kurz zOSMF) vereinfacht die Konfiguration und unterstützt bei Managementaufgaben in einer
+z/OS Umgebung. Es bietet zahlreiche optimierte Prozesse für Verwaltungsaktivitäten. Außerdem hilft es bei wiederholbaren
+Aufgaben, diese zu erleichtern und zu automatisieren.
+
+Bei zOSMF handelt es sich um eine Weboberfläche, die vom Netzwerk des Mainframes aus aufgerufen werden kann. Ein weiterer
+großer Vorteil des Konfigurationsprogramms ist die REST-Schnittstelle, die es zur Verfügung stellt (Mehr über zOSMF unter
+\cite{online_grundlagen_zosmf}).
+
+Weitere Informationen und Anleitungen sind auf der zOSMF-Webseite\footnote{https://www-03.ibm.com/systems/z/os/zos/features/zosmf}
+zu finden.
+
+\subsection{CICS}
+Bei Customer Information Control System (kurz CICS) handelt es sich um ein von IBM entwickeltes Programm für die
+Online-Transaktionsverwaltung. Es hat sich, zusammen mit der Programmiersprache COBOL, als das weitverbreitetste Toolset
+für Kundentransaktionsanwendungen im Bereich des Mainframe-Computings etabliert. Bei den meisten Legacy-Anwendungen handelt
+es sich um COBOL/CICS-Programme.
+
+Mit der API, welche CICS bereitstellt, kann ein Entwickler Anwendungen schreiben, welche mit Online-Usern kommunizieren
+und Datensätze aus einer Datenbank auslesen und schreiben. Dabei werden nicht IBM-Methoden sondern CICS-Funktionen
+gennutzt.
+
+Wie andere Transaktionsmanager kann CICS sicherstellen, dass eine Transaktion korrekt abgeschlossen wurde. Falls Probleme
+auftreten ist das System selbstständig in der Lage, Transaktionen rückgängig zu machen. Die Integrität von
+Datensätzen bleibt dabei stets erhalten (Siehe mehr in \cite{book_grundlagen_cics} und \cite{online_grundlagen_cics}).
+
+\section{DB2}
+Bei DataBase 2 (DB2) handelt es sich um ein relationales Datenbankmanagementsystem von IBM \cite{book_grundlagen_db2}.
+Seit Version 11 wird ein REST-Interface Service unterstützt, durch den eigene Schnittstellen definiert und aufgerufen
+werden können.
+
+\section{UrbanCode Deploy}
+UrbanCode Deploy (kurz UCD) ist ein Tool für die Automatisierung der Anwendungsbereitstellung, das ein schnelles Feedback
+und die Continuous Delivery in einer agilen Entwicklung vereinfachen und gleichzeitig die erforderlichen Versionskontrollen
+und Genehmigungen für Produktionsumgebungen bereistellt.
+
+Durch die Verwendung von UCD in Verbindung mit IBM Bluemix Private Cloud können Entwickler die Anwendungsbereitstellung
+und das Management in mehreren Cloudumgebungen und Anwendungen beschleunigen.
+
+\section{Rational Team Concert}
+Bei IBM Rational Team Concert (kurz RTC) handelt es sich um eine kollaborative Lösung für das Life-Cycle-Management von
+Softwareanwendungen, die auf der offenen IBM Technologieplattform Jazz basiert. Das Produkt bietet grundlegende
+Projektplanung, Work Item Management, Software-Versionierung, Arbeitsbereichsverwaltung und die Unterstützung paralleler
+Entwicklung.
+
+Außerdem wurde RTC dafür ausgelegt, verteilte Entwicklungsteams zu verbinden, die Produktivität jedes Einzelnen sowie des
+Teams zu steigern, die Entwicklungszyklen zu verkürzen und in kürzester Zeit qualitativ hochwertige Software bereitzustellen.
+
+\section{WebView}
+Bei WebView handelt es sich um ein Android- und iOS-Layout, das Webseiten darstellen kann. Über Schnitstellen werden
+Informationen wie Webseite, URL und Größe übergeben. Das Laden, das Anzeigen und die Interaktion mit der Webseite übernimmt
+das Layout selbstständig.
+
+Das Layout steht sowohl unter Android als auch iOS in den frühesten Versionen zur Verfügung (Weitere Informationen unter
+\cite{online_grundlagen_webviewer}).
+
+\section{Serviceorientierte Architektur}
+Hinter SOA, also den serviceorientierten Architekturen, steckt die Idee, die Programmlogik auf verschiedene
+Services zu verteilen und sie nicht in einem einzelnen Programm zu bündeln. Prozesse werden so als eigenständige Services
+definiert.
+
+Funktionen, die durch einzelne Systeme abgedeckt werden, sind dank SOA in standardisierter Form unternehmensweit
+zugänglich. Einmal erstellte Funktionen können also immer wieder verwendet werden (\cite{book_grundlagen_soa}).
+
+Anwendungen greifen über die HTTP-Methoden wie zum Beispiel \textit{GET}, \textit{POST}, \textit{PUT}, \textit{PATCH}
+und \textit{DELETE} auf die REST-Schnittstellen der Services zu und kommunizieren über \textit{JSON} oder \textit{XML}
+Objekte.
+
+\section{Model-View-Controller}
+Model-View-Controller (kurz MVC) wurde um 1978 von Xerox entwickelt und es handelt sich dabei um eine Architektur von
+Programmen.
+
+In MVC wird eine Anwendungskomponente in drei Teile zerlegt. In das oberflächenunabhängige \textit{Model}, das für die
+Ausgabe zuständige \textit{View} und den für die Interpretation von Eingabeereignissen zuständigen \textit{Controller}.
+
+Der Controller ist die Steuerungseinheit, das Model der Anwendungskern und die View der Darsteller bzw. die Ansicht der
+Anwendung. Ein View zusammen mit seinem Controller wird hier auch als eine Oberfläche bezeichnet.
+(Mehr hierzu unter \cite{book_prototypischeanwendung_mvc})
+
+Es gibt zahlreiche Frameworks, welche das MVC-Patern umsetzen. AngularJS ist einer der bekanntesten Vertreter.
+
+\section{REST}
+REST-API steht für Representational State Transfer - Application Programming Interface. Diese Interfaces machen den
+Austausch von Informationen über unterschiedliche Systeme möglich. Im Zeitalter verteilter Systeme und Cloud-Computing
+trifft man oft auf unterschiedliche Systeme, welche den Einsatz von REST-API notwendig machen.
+
+Man spricht bei REST-API auch von der Maschine-Maschine-Kommunikation, da die verschiedenen Systeme
+und Geräte zusammengebracht werden und gewissermaßen die gleiche Sprache sprechen.
+
+Mit REST-API ist es möglich geworden, Informationen und Aufgaben auf verschiedene Systeme zu verteilen und diese mit der
+Hilfe von HTTP-Requests anzufordern. Jeder HTTP-Request setzt sich aus dem Endpoint und den entsprechenden Parametern
+zusammen \cite{online_grundlagen_rest}.

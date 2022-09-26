@@ -1,0 +1,39 @@
+\section{Vorbereitung}
+In diesem Abschnitt werden Vorbereitungen für die Entwicklung mit und auf Bluemix getroffen. Dabei werden unter anderem
+Programme auf dem Entwicklungscomputer installiert und eingerichtet. Diese Schritte werden benötigt, da sonst nicht mit
+den Systemen gearbeitet werden kann.
+
+\subsection{Bluemix Konto}
+Um mit Bluemix arbeiten zu können, wird ein kostenloses Benutzerkonto vorausgesetzt. Dieses kann über die
+Registrierungs-Seite\footnote{https://console.ng.bluemix.net/registration} angelegt werden.
+
+Ab dem Zeitpunkt der Registrierung erhält der Benutzer 30 Tage alle Services komplett kostenlos.
+
+Nach dem erfolgreichen Anlegen des Benutzerkontos wird nach einem Namen für den ersten Bereich gefragt. Die Benamung des
+Bereichs spielt dabei keine Rolle und kann frei gewählt werden. Ein Beispiel hierfür wäre \path{Hybrid Cloud}.
+
+\subsection{Cloud Foundry CLI}
+Für die weitere Konfiguration von Bluemix wird das Command Line Interface (kurz CLI) von Cloud Foundry genutzt (auch
+Cloud Foundry CLI oder kurz CF genannt). Die Installation erfolgt unter Ubuntu mittels der folgenden Kommandos.
+
+\begin{lstlisting}[language=bash, caption=Installieren der Cloud Foundry CLI, label=Installieren der Cloud Foundry CLI]
+   $ wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+   $ echo "deb http://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+   $ sudo apt-get update
+   $ sudo apt-get install cf-cli
+\end{lstlisting}
+
+Ein Installer für Windows und MacOS steht im öffentlichen GitHub-Repository\footnote{https://github.com/cloudfoundry/cli}
+von Cloud Foundry zur Verfügung.
+
+Anschließend kann im Terminal, um die Installation zu überprüfen, die Version der Cloud Foundry CLI abgefragt werden. Dies
+geschieht über den Parameter \path{version}.
+
+\begin{lstlisting}[language=bash, caption=Version der Cloud Foundry CLI überprüfen, label=Version der Cloud Foundry CLI überprüfen]
+   $ cf --version
+\end{lstlisting}
+
+Es sollte eine Version größer \path{6.x} angezeigt werden. Zum Beispiel \path{cf version 6.22.2+a95e24c-2016-10-27}.
+
+Eine Übersicht über die wichtigsten Befehle der Cloud Foundry CLI ist auf der Bluemix
+Hilfeseite\footnote{https://console.ng.bluemix.net/docs/cli/reference/cfcommands/index.html} zu finden.

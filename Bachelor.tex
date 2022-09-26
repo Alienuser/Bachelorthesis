@@ -1,0 +1,129 @@
+\include{preamble}
+
+\include{content/Glossary}
+
+% Beginn des eigentlichen Dokuments
+\begin{document}
+
+% Titelseite (verwendet pagestyle=empty)
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=2.5]{images/he_logo.pdf}\\
+\vspace{1cm} Fakultät Informationstechnik\\
+\vspace{1.5cm} \Large Abschlussarbeit\\
+\vspace{1.5cm} \Huge Konzeption einer Hybrid-Cloud-Architektur, Implementierung und Nutzung durch prototypische Anwendung mit Bluemix und z Systems\\
+\vspace{1.5cm} \Large Lars Helmuth Probst\\\normalsize
+\vspace{0.5cm} Sommersemester 2017\\\normalsize
+\vfill{}
+\begin{tabular}{rl}
+Firma: & IBM Deutschland GmbH\\[0.5cm]
+Betreuer: & Tobias Leicher\\[0.5cm]
+Erstprüfer: & Prof. Dr. Manfred Dausmann\\[0.5cm]
+Zweitprüfer: & Prof. Reinhard Keller\\
+\end{tabular}
+\end{center}
+\end{titlepage}
+
+% Zitat / Widmung
+\thispagestyle{empty}
+\vspace*{2cm}
+\begin{center}
+\begin{minipage}{12cm}
+\begin{center}
+% Hier könnte es jemandem gewidmet werden.
+\end{center}
+\end{minipage}
+\vfill{}
+\begin{minipage}{10cm}
+\begin{quote}
+\textit{"`Scientists investigate that which already is;\\ engineers create that which has never been."'}
+\end{quote}
+\hfill Albert Einstein
+\end{minipage}
+\end{center}
+
+% Erklärung
+\chapter*{Ehrenwörtliche Erklärung}
+\thispagestyle{empty}
+Hiermit versichere ich, die vorliegende Arbeit selbstständig und unter ausschließlicher Verwendung der angegebenen Literatur und Hilfsmittel erstellt zu haben.\\\\
+Die Arbeit wurde bisher in gleicher oder ähnlicher Form keiner anderen Prüfungsbehörde vorgelegt und auch nicht veröffentlicht.\\
+\begin{tabbing}
+          Esslingen, den 10. Juli 2017 ~~	\= \rule{6cm}{0.3mm}\\
+                                                                                     \> Unterschrift
+\end{tabbing}
+
+% Danksagung
+\include{content/0_Danksagung}
+
+% "Frontmatter" beginnen (Formatierung umschalten)
+% Platz für Inhaltsverzeichnis und anderes
+\frontmatter
+
+% Inhaltsverzeichnis ausgeben
+\tableofcontents
+
+% Die Überschrift für den Eintrag mit title= Überschreiben
+% Ohne Angabe des type wird type "glossary" verwendet
+% Ausser "altlist" existieren einige andere Stile wie z.B. "long"
+%\printglossary[style=altlist, title=Stichwortverzeichnis]
+%\newpage
+
+% Das Abkürzungsverzeichnis hat den Typ \acronymtype
+\printglossary[type=\acronymtype, style=long, title=Abkürzungsverzeichnis]
+\newpage
+
+% Das selbstdefinierte Verzeichnis ausgeben
+%\printglossary[type=symbolslist, style=long, title=Symbolverzeichnis]
+%\newpage
+
+% Hauptteil beginnen (Formatierung umschalten)
+\mainmatter
+
+%------------------------------------------------------------------
+%                      Kapitelstruktur einfügen
+%------------------------------------------------------------------
+\include{content/1_Einleitung}
+\include{content/2_Grundlagen}
+\include{content/3_HybridCloud_Architektur/30_HybridCloud_Architektur}
+\include{content/3_HybridCloud_Architektur/31_Analyse}
+\include{content/3_HybridCloud_Architektur/32_Vorbereitung}
+\include{content/3_HybridCloud_Architektur/33_Umsetzung}
+\include{content/3_HybridCloud_Architektur/34_Abschluss}
+\include{content/4_Prototypische_Anwendung/40_Prototypische_Anwendung}
+\include{content/4_Prototypische_Anwendung/41_Analyse}
+\include{content/4_Prototypische_Anwendung/42_Vorbereitung}
+\include{content/4_Prototypische_Anwendung/43_Umsetzung}
+\include{content/4_Prototypische_Anwendung/44_Abschluss}
+\include{content/5_Qualitaetssicherung}
+\include{content/6_Diskussion}
+\include{content/7_Ausblick}
+\include{content/8_Zusammenfassung}
+
+% Alle Einträge der BibTeX Datenbank "zitieren"
+\nocite{*}
+% Einstellen des Bibliography-Stils für das Literaturverzeichnis
+\bibliographystyle{abbrvdin}
+% Auswahl der BibTeX Datenbank für das Literaturverzeichnis
+\bibliography{literatur}
+
+% Abbildungsverzeichnis ausgeben
+\listoffigures
+
+% Tabellenverzeichnis ausgeben
+%\listoftables
+
+% Das Listings-Verzeichnis scheint mit manchen Versionen vom Koma-Script
+% bzw. des Listings Pakets nicht ohne weiteres zu funktionieren
+\lstlistoflistings
+
+% Anhang beginnen (Formatierung umschalten)
+\appendix
+\include{content/9_Anhang}
+
+% Ausgabe des Wortindex
+% idxtotoc Option scheint nicht zu funktionieren
+%\clearpage
+%\addcontentsline{toc}{chapter}{Index}
+%\printindex
+
+\end{document}
