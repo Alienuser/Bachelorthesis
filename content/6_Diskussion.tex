@@ -1,0 +1,107 @@
+\chapter{Diskussion}
+\label{cha:diskussion}
+In diesem Kapitel werden Themen angesprochen, die bei der Arbeit mit der Hybrid-Cloud-Architektur zu beachten sind.
+
+Auch soll auf die Sicherheit eingegangen und Use-Cases für die Architektur vorgeschlagen werden.
+
+\section{Rechte der Entwickler}
+\label{sec:rechte_der_entwickler}
+In den meisten Fällen wird dem Entwickler von einem IT-Administrator die benötigte Infrastruktur oder Ressource zur
+Verfügung gestellt. Das bedeutet, dass der Entwickler diese lediglich anfordern muss, sich aber keine Gedanken darüber
+macht, wo die Instanz physisch läuft. Darum kümmert sich in der Regel der IT-Administrator.
+
+In der Hybrid-Cloud ist die Idee, dass der Entwickler sich die Ressourcen die er braucht, genau wie auf einer großen
+Spielwiese, allerdings selber einrichtet.
+
+Genau in diesem Punkt liegen auch größere Probleme. Wenn der Entwickler nun Ressourcen auf dem Mainframe oder auch in der
+Cloud einrichten und seine Anwendungen in beiden Netzwerken zur Verfügung stellen kann, können unter anderem
+datenschutzkritische Bestandteile in der Cloud liegen, ohne dass der Entwickler das aktiv möchte.
+
+\section{Produktion}
+Für die Entwicklung einer Anwendung ist es oftmals hilfreich einen \textit{DEV}- und ein \textit{PROD}-Stage der Anwendung
+bereit zu stellen. Auch kann es von Vorteil sein, mehrere DEV-Stages zu besitzen. Darauf soll im folgenden aber nicht
+näher eingegangen werden, da die Erweiterung der Stages nicht sehr schwer ist.
+
+In der \textit{DEV}-Stage werden zum Beispiel täglich Änderungen eingebaut, die dann durch die Qualitätsabteilung
+getestet und mit den benötigten Anforderungen verglichen werden können.
+
+Wohingegen in der \textit{PROD}-Stage werden neue Updates erst gebündelt installiert, wenn sie in der DEV-Stage komplett
+erfolgreich getestet und mit den Anforderungen verglichen wurden.
+
+In der Hybrid-Cloud-Architektur gibt es mehrere Möglichkeiten, diese beiden Stages abzubilden.
+
+In der ersten Variante wird die DEV-Stage im eigenen Rechenzentrum aufgebaut und die PROD-Stage wird in der Cloud
+eingerichtet. Diese Variante macht dann Sinn, wenn die Anwendung später auch in der Cloud laufen soll.
+
+Beim Aufbau dieser Architektur, kann die Anwendung im eigenen Unternehmen getestet werden. Die Anwendung kann ggf. mit
+Daten aus der eigenen Infrastruktur gefüttert werden. Wenn die Abteilung der Qualitätssicherung eine Version dann freigibt,
+kann sie in der Cloud installiert werden.
+
+Die Verbindung zwischen der Anwendung und den Daten im eigenen Rechenzentrum wird über die Hybrid-Cloud-Architektur gelöst.
+
+Die zweite Variante sieht die DEV-Stage in der Cloud und die PROD-Stage im eigenen Rechenzentrum vor. Dies ist immer dann
+sinnvoll, wenn die Anwendung später auch im eigenen Rechenzentrum laufen soll.
+
+Der Vorteil dieses Aufbaus liegt darin, dass die Anwendung in der DEV-Stage in der Cloud getestet werden kann. Mitarbeiter
+welche diese Testen, brauchen keine VPN-Verbindung ins interne Netz um auch von zu Hause testen zu können. Nachdem eine
+Version freigegeben wird, wird diese auf dem internen Server installiert und steht ab sofort zur Verfügung.
+
+Während der Testphase kann die Anwendung mit Daten aus dem Rechenzentrum über die Hybrid-Cloud versorgt werden.
+
+Ein weiterer Vorteil ist, dass auch externe Tester für die Anwendung herangezogen werden können. Dies ist immer dann
+sinnvoll, wenn Personen, die die Anwendung gar nicht kennen, einen Blick drauf werfen sollen.
+
+\section{Use-Cases}
+Für die Hybrid-Cloud-Architektur gibt es zahlreiche Use-Cases. Im folgenden soll auf ein paar wenige eingegangen werden,
+welche die bedeutsamsten Use-Cases darstellen.
+
+\subsection{Workloads}
+Manchmal ist es bei der Entwicklung einer Anwendung nicht klar, wie sie im Markt ankommen wird. Ein
+Cloud orientierter Ansatz folgt dem Ansatz \glqq fail fast, fail cheaply\grqq.
+
+Danach macht es Sinn, für die Anwendung Ressourcen in der Public Cloud bereit zu stellen, die je nach Bedarf skaliert
+werden können. Somit können die enstehenden Kosten überschaubar gehalten werden.
+
+Sollte sich über die Zeit herausstellen, dass die Anwendung von den Kunden zahlreich genutzt wird, kann sie in die
+bestehende Infrastruktur integirert oder eigene Ressourcen bereitgestellt werden. Für den Übergang ist es hilfreich
+eine Hybrid-Cloud aufzubauen, so können Spitzenzeiten noch abgefangen werden.
+
+\subsection{Cloud Bursting}
+Das Wort \textit{Cloud Bursting} stammt aus der Situation heraus, bei der neben der eigenen Infrastruktur eine Cloud
+genutzt wurde um Kapazitätsprobleme zu umgehen. Meist handelt es sich dabei um temporäre Situationen, zum Beispiel bei
+einem Online-Shop während der Weihnachtszeit.
+
+Das \textit{Cloud Bursting} wird oft mit \glqq buy the base, rent the spike\grqq~beschrieben.
+
+Der Hybrid-Cloud-Ansatz ermöglicht es einem Unternehmen bei auftretenden und temporären Lastspitzen eine Cloud mit zu
+nutzen um diese zu bewerkstelligen. Dabei wird eine sichere und schnelle Verbindung zwischen dem eigenen und den
+Cloud-Ressourcen benötigt. Dies ist mit dem Secure Gateway Service möglich.
+
+\subsection{Hochverfügbarkeit}
+Eine möglichst hohe und geografisch redundante Verfügbarkeit ist durch die eigene Infrastruktur nicht immer möglich.
+Gerade kleinere und mittelständische Firmen, welche nicht in jedem Kontinent ein eigenes Rechenzentrum haben, können diese
+Verfügbarkeit nicht immer gewährleisten.
+
+Durch die Hybrid-Cloud ist es möglich, dass eigene Rechenzentrum zu nutzen und nur in Ländern in denen dieses nicht zur
+Verfügung steht, die Ressourcen durch die Cloud zu erweitern.
+
+\subsection{Katastrophenwiederherstellung}
+Für Unternehmen welche eine Hybrid-Cloud-Architektur nutzen ist es zum Beispiel möglich, die eigentliche Anwendung in
+der Cloud laufen zu lassen und ein Backup im eigenen Rechenzentrum. So ist es möglich, wenn die Cloud-Anwendung
+nicht richtig oder gar nicht funktioniert, einfach auf die im eigenen Rechenzentrum zu springen und diese weiter zu nutzen.
+
+Alternativ kann aus dem eigenen Rechenzentrum, in dem der Quelltext der Anwendung liegt, ein neues Deployment auf die
+in der Cloud liegenden Ressourcen gestartet werden, um fehlerhafte Instanzen zu elminieren.
+
+\subsection{Rechtliche Vorgaben}
+In vielen europäischen Ländern und gerade in Deutschland ist es für viele Unternehmen wichtig, dass die gespeicherten
+Daten in einem Rechenzentrum gespeichert sind, welche den hohen deutschen Datenschutzrichtlinien unterliegen. Dies bedeutet
+meist, dass die Daten in Deutschland gespeichert werden müssen.
+
+Dadurch ist es nicht möglich, die komplette Infrastruktur in die Cloud zu migrieren. Durch die Hybrid-Cloud ist es allerdings
+möglich den deutschen Datenschutzrichtlinien zu entsprechen in dem die Daten im eigenen Rechenzentrum verwaltet werden
+und Anwendungen, welche mit den Daten arbeiten, in eine Cloud ausgelagert werden können.
+
+So ist es zum Beispiel möglich Anwendungen für Länder zu entwickeln und dort bereit zu stellen und trotzdem mit den Daten
+zu arbeiten welche sicher in Deutschland liegen. Bei solchen Anwendungen kann es sich auch um einfache
+API-Management-Anwendungen handeln, welche den Traffic an den richtigen Server schicken.

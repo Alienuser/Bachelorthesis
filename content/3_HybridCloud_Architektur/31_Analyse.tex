@@ -1,0 +1,69 @@
+\section{Analyse}
+
+\subsection{Aufgaben}
+Um auf dem Mainframe verschiedene Aufgaben durchzuführen, gibt es mehrere Möglichkeiten. Eine ist das Ausführen von Kommandos
+über ein Terminal. Eine andere, das Schreiben von eigenen Shell-Scripten, welche diese Aufgaben erledigen.
+
+Alternativ können alle Aufgaben mit dem in z/OS-Version 1.13 eingeführten zOSMF durchgeführt werden. Dabei handelt es
+sich um ein Web-Interface, mit dem zahlreiche Konfigurationen auf dem Mainframe vorgenommen werden können. Das Interface
+besitzt darüber hinaus eine RESTFul-Schnittstelle, die es ermöglicht, eigene Programme für einzelne Aufgaben zu schreiben,
+die bequem gesteuert werden können.
+
+Ein Vorteil dabei ist, dass die geschriebenen Programme, welche die RESTFul-Schnit\-tstelle von zOSMF ansteuern, nicht auf
+dem gleichen System bereit stehen müssen. Sie müssen lediglich eine Verbindung bzw. einen Kommunikationskanal zum zOSMF
+haben.
+
+\subsection{Konfigurationsinterface}
+Um Ressourcen auf einem Mainframe bereit zu stellen, wird ein Interface zur Verwaltung benötigt. In dieser Arbeit stehen
+zwei mögliche Interfaces zur Auswahl. Das lokale zOSMF und Bluemix, die von IBM
+veröffentlichte Plattform für Cloud-Anwendungen.
+
+Mit dem Interface soll es möglich sein, neue Ressourcen zu provisionieren, zu starten, zu stoppen und zu löschen. Außerdem
+soll das Interface Informationen über die vorliegende Konfiguration und Ressourcen anzeigen können. Des Weiteren soll es
+definierte Workflows in UCD starten und stoppen können.
+
+Die Wahl fiel zugunsten von Bluemix aus, da dies öffentlich im Internet zur Verfügung steht, wohingegen zOSMF ggf. eine
+VPN-Verbindung ins Netz des Mainframes voraussetzt. Außerdem enthält Bluemix, im Gegensatz zu zOSMF, die Cloud Services.
+
+\subsection{Kommunikation}
+Damit von Bluemix aus die RESTFul-Schnittstelle sowohl von zOSMF als auch von UCD angesteuert werden kann, muss eine
+dauerhafte Verbindung zwischen Cloud und lokalem Netzwerk des Mainframes hergestellt werden. Dazu ist es nötig eine
+VPN-"-Verbindung zwischen den beiden Netzwerken aufzubauen. Diese kann entweder manuell eingerichtet, gewartet und
+gesichert werden, oder es wird der Secure Gateway Service von Bluemix genutzt.
+
+Da sich der Secure Gateway Service selbst um die Verbindung und Authentifizierung zwischen Client und Server kümmert, wird
+dieser in der Architektur genutzt. Ein weiterer Vorteil ist die leichte Konfiguration und die automatische Wiederverbindung
+nach einem Neustart des Systems oder einem Verbindungsabbruch.
+
+Außerdem können durch den Service mehrere Verbindung zwischen Cloud und Mainframe hergestellt werden, welche durch
+unterschiedliche Ports realisiert werden.
+
+\subsection{Verteilte Versionskontrolle}
+Für das Speichern und Verwalten von Quelltext kommen mehrere Services in Frage. Einerseits die in Bluemix zur Verfügung
+gestellten Services zur Integration von GitHub oder ein selbst gehostetes Git-Repository, alternativ auch
+ein RTC, welches auf einem Mainframe installiert werden kann.
+
+Für die Architektur ist es sinnvoll, beide Möglichkeiten zu unterstützen. So ist es möglich, den Quelltext in der Cloud
+auf einem GitHub-Repository zu verwalten oder mittels RTC, lokal auf dem Mainframe.
+
+Ein weiterer Vorteil bei der Unterstützung beider Möglichkeiten ist, dass sowohl der Quelltext, welcher in einem Cloud-Repository
+verwaltet wird, durch ein Deployment auf einem lokalen Mainframe installiert, als auch der lokale Quelltext im
+RTC in einer Cloud-Umgebung installiert werden kann.
+
+\subsection{Continuous integration}
+Für einen kontinuierlichen Bau eines Artefaktes aus dem Quelltext gibt es im Aufbau zwei Möglichkeiten. Entweder
+den Toolchain-Service in Bluemix oder das UCD, lokal auf dem Mainframe.
+
+Da es schon eine Verbindung zu UCD gibt und der Quelltext entweder lokal oder in der Cloud abgelegt werden kann,
+werden beide Möglichkeiten umgesetzt.
+
+So ist es möglich, mittels einer Bluemix Toolchain und verbundenem Git-Repository
+das Artefakt in einer CICS-Region von der Cloud aus zu installieren oder durch das UCD, welches den Quellcode von einem RTC
+lokal auf dem Mainframe abgreift.
+
+\subsection{Qualitätssicherung}
+Damit bei einem regelmäßigen Bau des Quellcodes nach einem Git-Commit die richtige Qualität gewahrt werden kann, müssen
+automatisierte Tests hinterlegt werden.
+
+Da sowohl die Bluemix Toolchain als auch UCD in der Architektur eingesetzt werden, wird in beiden Deployment-Scripten
+ein Block hinzugefügt, welcher die Tests ausführt, die für die jeweilige Anwendung geschrieben wurden.

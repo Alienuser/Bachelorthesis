@@ -1,0 +1,191 @@
+\chapter{Ausblick}
+\label{cha:ausblick}
+In diesem Kapitel sollen weitere Services und Funktionen erwähnt werden, durch die die prototypische Anwendung erweitert
+und verbessert werden kann.
+
+Außerdem sollen Möglichkeiten aufgezeigt werden, welche die Arbeit mit der Hybrid-Cloud-Architektur unter Bluemix
+und z Systems vereinfacht.
+
+\section{Nutzen von API-Connect}
+In der jetzigen Version wird um die COBOL-Anwendung ein Java-Wrapper geschrieben, welcher ein REST-Interface für Anfragen
+von außen zur Verfügung stellt. Wenn die COBOL-Anwendung erweitert werden würde oder noch andere Funktionen dieser genutzt
+werden sollen, muss immer die Java-Applikation angepasst werden.
+
+Alternativ ist es möglich, den API-Connect Service von Bluemix zu nutzen, welcher eine browserbasierte GUI zur Verfügung
+stellt, mit welcher es möglich ist, REST(Ful)-Interfaces zu entwickeln.
+
+Bei der Nutzung des Services würde das Web-Frontend (und die Smartphone-Apps) ihre Anfragen an den Service schicken. Dieser
+würde dann über den Secure Gateway eine Verbindung auf die COBOL-Anwendung aufbauen und Informationen abrufen.
+
+Außerdem ist es möglich, dass der API-Connect Service auch den DB2 REST Service aufrufen kann. So hat das Web-Frontend
+lediglich eine Schnittstelle, die es ansprechen muss. Der API-Connect Service schickt die Anfragen dann an verschiedene
+Anwendungen weiter.
+
+\section{Open Service Broker Projekt}
+Da die Schnittstellen eines Servcie Brokers von der \textit{Open Service Broker Projekt} Organisation definiert werden und
+dieser zahlreiche große Firmen angehören, welche jeweils eigene Cloud-Lösungen anbieten, kann der entwickelte Service
+Broker auch auf anderen Cloud-Infrastrukturen eingerichtet werden.
+
+So könnte der Service Broker zum Beispiel auch bei Amazons AWS instanziiert werden und somit theoretisch eine Verbindung
+zwischen dieser Cloud und einer anderen Cloud oder einem Mainframe aufgebaut werden. Allerdings unterstützt AWS bislang
+nicht die Möglichkeit VPN Verbindungen zu anderen Netzwerken aufzubauen.
+
+\section{Einbindung in den Katalog}
+Aktuell ist der entwickelte Service Broker nur in der Bluemix Organisation über die Cloud Foundry CLI sichtbar in der er
+eingerichtet wurde. Dort auch nur für Nutzer, welche auf die Organisation Zugriff haben. Er erscheint jedoch nicht im
+Bluemix Katalog.
+
+Das Hinzufügen eines Service Brokers in den allgemeinen Bluemix Katalog kann lediglich durch einen Administrator erfolgen.
+Dieser kann allerdings einstellen, in welcher Region oder welchen Kundengruppen dieser Service Broker zur Verfügung stehen
+soll.
+
+Beim Entwickeln des Service Brokers wurde dieser schon mit einem Icon und einem Beschreibungstext ergänzt, sodass das
+Hinzufügen in den Katalog keine Nacharbeit am Quellcode des Service Brokers bedeuten würde.
+
+Nach weiteren Tests könnte eine Anfrage an einen Administrator von Bluemix Public gestellt werden, sodass der Service
+Broker in den Katalog aufgenommen werden kann. Dies geschieht über das
+Support-Formular\footnote{https://developer.ibm.com/answers/questions/ask/?topics=bluemix}.
+
+\section{Weitere zOSMF Interface Funktionen}
+Bisher wird im Service Broker neben dem Abruf der allgemeinen Informationen lediglich noch die Funktion zum Ausführen
+von Workflows und Jobs der einzelnen Instanzen des zOSMF Interfaces genutzt.
+
+Das Interface von zOSMF bietet allerdings noch weitaus mehr Funktionen.
+
+Eine Möglichkeit wäre das Auslesen der aktuellen Workflows. Aktuell kann lediglich ein Workflow gestartet werden,
+welcher eine CICS-Region erstellt. Wenn alle Workflows dynamisch abgefragt werden, könnten neu erstellte auch ausgeführt
+werden.
+
+Desweiteren könnten Workflows in Bluemix mit einem visuellen Editor geschrieben werden (ähnlich
+Node-Red\footnote{https://nodered.org}) und dann an zOSMF übertragen werden. So könnten, auch automatisiert, neue Workflows
+entstehen, welche Runtimes oder Anwendungen auf dem Mainframe erstellen.
+
+Auch könnten die Notifications für einen Benutzer ausgelesen werden. Dadurch wäre es möglich festzustellen, wann der
+gestartete Workflow abgeschlossen wurde. Denn immer wenn ein Workflow gestartet, gestoppt, durchgeführt oder in einen
+Fehler läuft, wird der Benutzer mit einer Notifications darauf aufmerksam gemacht.
+
+\section{MobileFirst Platform}
+Bei den Smartphone-Apps handelt es sich jeweils um native Applikationen, welche ein WebView-Layout beinhalten, in das beim
+Start immer die aktuellste Version des Web-Frontends geladen wird.
+
+Die Interaktion mit dem Frontend übernimmt das WebView-Layout, und getätigte Einstellungen werden auf dem Smartphone
+persistiert.
+
+Um die MobileFirst Platform zu nutzen, muss der Service in das Web-Frontend eingebunden werden. Die MobileFirst Platform
+nutzt dabei Cordova um die Webseite dann in eine native Android, iOS und Windows App zu kompilieren. Dabei werden
+HTML Elemente durch die Systemeigenen ersetzt. Ein HTML-Button wird dann zum Beispiel zu einem nativen Button.
+
+Der große Vorteil der Nutzung dieser Platform ist neben der Möglichkeit neben Android und iOS auch Windows Phone zu
+unterstützen, dass weiterhin nur ein Web-Frontend geschrieben werden muss und dies dann in eine native Applikation
+umgewandelt werden kann. Daraus ergibt sich ein besseres \textit{Look and Feel} und eine höhere Performance
+der Applikation.
+
+\section{Native Smartphone-Apps}
+Anstatt wie bisher das Web-Frontend in einen WebView-Layout zu laden oder mit Hilfe der MobileFirst Platform native Applikationen
+aus HTML zu erstellen, können für die verschiedenen Smartphonebetriebssysteme jeweils eigene, native App geschrieben
+werden.
+
+Dies hat, neben vielen weiteren, den Vorteil, dass direkt auf die Hardware des Systems zugegriffen werden kann und Daten
+mit anderen Apps ausgetauscht werden können.
+
+So ist es zum Beispiel möglich, Informationen, die in der Anwendung angezeigt werden, mit den Kontaktdaten auf dem Smartphone
+abzugleichen und den Datenstand gegenseitig anzupassen.
+
+\section{Erweiterung der Toolchain}
+\label{sec:erweiterung_der_toolchain}
+Die in diesem Projekt genutzte Toolchain besitzt lediglich eine rudimentäre Verbindung zum Mainframe um dort eine Anwendung
+einzurichten. Diese wurde händisch über das FTP-Protokoll aufgebaut. Allerdings gibt es auch für die Toolchain möglichkeiten
+eigene Services zu schreiben. Ähnlich dem Service zur Integration eines GitHub Projektes.
+
+Die Funktion der Toolchain könnte dahingehend erweitert werden, dass aus dem instanziierten Secure Gateway Service alle
+Verbindungen zu den CICS-Regionen herausgesucht werden und automatisch ein Build-Prozess für diese eingerichtet werden kann.
+
+Somit wäre ein deployment auf die verschiedenen CICS-Regionen einfacher über die Toolchain möglich ohne für jede CICS-Region
+selbstständig eine FTP- oder SSH-Verbindung aufzubauen.
+
+\section{Automatischer Secure Gateway}
+Wenn über den Service Broker eine neue CICS-Region erstellt wird und diese auch über die Cloud genutzt werden soll, muss
+nach der erfolgreichen Einrichtung händisch ein Ziel im Secure Gateway Service hinzugefügt werden.
+
+Einfacher wäre es, wenn es bei der Erstellung einer CICS-Region eine Auswahl mit \textit{Make public} gäbe, welche nach
+Auswahl ein Ziel automatisiert hinzufügt.
+
+Um diese Funktionalität zu erreichen, muss der Secure Gateway Service in Bluemix überarbeitet werden. Er muss über ein
+REST-Interface verfügen, über das es möglich ist, neue Ziele hinzuzufügen. Als Parameter müsste das Interface zumindest
+\textit{Name}, \textit{IP-Adresse} und \textit{Port} unterstützen.
+
+\section{Auslesen der zOSMF-URL}
+Um die Hybrid-Cloud-Architektur zu nutzen, muss ein Ziel im Secure Gateway zum zOSMF erstellt werden. Anschließend kann
+der Service Broker instanziiert werden. Dieser muss im ersten Schritt mit URL, Benutzername und Passwort für zOSMF
+eingerichtet werden.
+
+Einfacher wäre es, wenn die angelegte zOSMF-URL im Secure Gateway Service automatisiert vom Service Broker ausgelesen
+werden könnte. Um dies zu realisieren, muss der Secure Gateway Service über ein REST-Interface verfügen, über den alle
+eingerichteten URLs ausgelesen werden können.
+
+Anschließend könnte der Service Broker entweder alle URLs anzeigen und der Benutzer wählt die Richtige aus, oder anhand
+der Benamung der URL wird dieser vorausgewählt. Denkbar wäre die Benamung \path{zOSMF}.
+
+\section{Automatisches Auslesen von URLs}
+Damit das Frontend mit dem Backend auf dem Mainframe kommunizieren kann, muss in Bluemix im Secure Gateway Service ein
+Ziel dafür eingerichtet werden. Diese URL muss im Frontend gespeichert werden, damit die Angular-Factories Anfragen an
+das Backend schicken können.
+
+Für die Umsetzung wäre es einfacher, wenn der Secure Gateway Service über die VCAP-Variablen alle seine Ziele
+zur Verfügung stellen würde. So könnte das Frontend die URL dynamisch aus dem Secure Gateway Service auslesen und die
+Anfragen an das Backend schicken.
+
+Ein weiterer Vorteil wäre, dass wenn sich zum Beispiel die CICS-Region ändert eine neue URL hinzugefügt werden kann und
+das Web-Frontend automatisch über den Namen das richtige Ziel auswählt ohne ein neues Deployment mit Quellcodanpassungen
+durchführen zu müssen.
+
+Auch wäre es so einfacher eine \textit{DEV}- und \textit{PROD}-Stage des Web-Frontend zu nutzen. Entsprechend wären zwei
+Ziele im Secure Gateway Service eingerichtet (welche zum Beispiel auf unterschiedliche CICS-Regionen zeigen), und das
+Web-Frontend wählt, je nach Stage, die richtige URL aus.
+
+\section{Unterschiedliche Mainframes}
+Aktuell wird für jede Konfiguration eines Mainframes ein eigenständiger Service Broker benötigt. Meist unterhält ein
+Unternehmen aber mehrere z Systems in seinem Rechenzentrum.
+
+Sinnvoll wäre, dass der Service Broker mehrere Verbindungen zu unterschiedlichen z Systems aufbauen kann (vorausgesetzt
+den Verbindungen durch den Secure Gateway Service). Dann könnte bei der Erstellung einer CICS-Region nach dem z System
+gefragt werden, auf dem die CICS-Region eingerichtet werden soll.
+
+Auch könnten die \textit{Tenants} für die Auswahl der verschiedenen z Systems genutzt werden.
+
+\section{Fragenkatalog}
+Wie in Kapitel \ref{sec:rechte_der_entwickler} auf Seite \pageref{sec:rechte_der_entwickler} beschrieben, müssen dem
+Entwickler Hilfen angeboten werden, um sicherzustellen, dass die datenkritischen Anwendungen richtig geschützt werden
+können.
+
+Dafür wäre bei der Erstellung einer neuen CICS-Region über den Service Broker ein vorangeschalteter Fragenkatalog hilfreich.
+In diesem wird der Benutzer gefragt, um welche Art von Anwendung es sich handelt und um welche Daten es geht. Nach der
+Beantwortung der Fragen, kann der Service Broker die Rechenpower in Form einer CICS-Region auf dem Mainframe oder
+als zum Beispiel Cloud Foundry Applikation in Bluemix zur Verfügung stellen.
+
+Die Entscheidung, wo die Ressourcen bereit stehen, trifft also nicht der Entwickler sondern der Service Broker.
+
+\section{Hinzufügen einer Applikation}
+Bei der Einrichtung einer CICS-Region wird der hinterlegte Workflow genutzt, um den Job durchzuführen. Dabei ist fest
+vorgegeben, wie und mit welchem Inhalt die CICS-Region erstellt wird. Ein Abändern des Workflows ist oft mühsam und
+setzt technisches Verständnis voraus.
+
+Da CICS-Regionen ohne vorinstallierte Anwendung wenig Sinn machen, könnte bei der Erstellung einer solchen auch gleich
+nach einer Anwendung gefragt werden, welche vorinstalliert werden soll. Die Auswahl der Anwendungen könnte aus dem RTC bzw.
+UCD kommen (eine Verbindung dazu gibt es schon). Dort könnten alle Verfügbaren Anwendungen ausgelesen und dem  Benutzer
+via Auswahl angezeigt werden.
+
+Im nächsten Schritt würde die CICS-Region erstellt werden und im Anschluss über UCD ein Build auf dieses System mit der
+ausgewählten Applikation.
+
+\section{Andere Cloudanbieter}
+Zur Zeit kann der Service Broker lediglich CICS-Regionen über zOSMF auf einem Mainframe bereitstellen. Oftmals gibt es
+in einem Unternehmen neben einem Mainframe auch mehrere Cloudanbieter. Denkbar wäre die Integration eines anderen
+Cloudanbieters.
+
+So hätte der Nutzer des Bluemix Service Brokers die Möglichkeit neben dem Erstellen einer CICS-Region auf dem Mainframe
+auch das Hinzufügen von Runtimes in anderen Cloud-Umgebungen um eine Anwendung über mehrere Cloud-Anbieter und seinem
+Mainframe hinweg zu entwickeln.
+
+Dafür müsste lediglich eine Verbindung zum weiteren Cloud-Anbieter hergestellt werden und dem Service Broker der dortige
+Benutzername mit Passwort bekannt gemacht werden.

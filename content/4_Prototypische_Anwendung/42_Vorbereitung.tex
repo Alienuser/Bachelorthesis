@@ -1,0 +1,43 @@
+\section{Vorbereitung}
+In diesem Abschnitt werden Vorbereitungen für die Entwicklung auf Bluemix und für Cloud Foundry Container getroffen. Dabei
+werden unter anderem Programme installiert und eingerichtet.
+
+\subsection{Git}
+Um mit Git-Repositorys arbeiten zu können, wird ein lokaler Git-Client benötigt. Dieser kann unter Ubuntu mit folgenden Befehlen
+installiert und eingerichtet werden.
+
+\begin{lstlisting}[language=bash, caption=Installieren von Git, label=Installieren von Git]
+   $ sudo apt-get update
+   $ sudo apt-get install git
+\end{lstlisting}
+
+Eine Windows- und MacOS-Installer kann auf der Webseite von Git heruntergeladen werden\footnote{https://git-scm.com}.
+
+\subsection{IBM Application Discovery}
+Um die COBOL-Anwendung analysieren zu können wird das Tool IBM Application Discovery genutzt. Die Installation des Tools
+kann auf zwei Arten geschehen.
+
+\begin{itemize}
+    \item{Manuelle Installation des Servers und der Clients}
+    \item{Nutzen einer Virtual Machine}
+\end{itemize}
+
+Da die manuelle Installation des Servers und der Clients recht langwierig ist und in der
+Installationsanleitung\footnote{https://www.ibm.com/support/knowledgecenter/en/SSRR9Q} nachgelesen werden kann, wird hier
+kurz auf die Nutzung der Virtual Machine eingegangen.
+
+Um die Virtual Maschine nutzen zu können, wird ein Tool benötigt um diese abzuspielen. Eine Möglichkeit ist das Programm
+\path{VM VirtualBox}\footnote{https://www.virtualbox.org} von Oracle.
+
+Nach der Installation von VM VirtualBox muss die Virtual Mashine von IBM Application Discovery heruntergeladen werden.
+Die Dateien stehen im IBM
+Repository\footnote{http://ausgsa.ibm.com/projects/r/rational\_mktengr\_team/EM/EZSourceSoftwareAndDocs\\/VMImage2016-10-05}
+zur Verfügung.
+
+Nach dem Download der 19 Teilarchiv-Dateien müssen diese durch einen Archivmanager zusammengefügt und die \path{.vmx}-Datei
+extrahiert werden.
+
+Im letzten Schritt wird die \path{.vmx}-Datei als Festplatte in VM VirtualBox hinzugefügt und gestartet.
+
+In der gestarteten Virtual Mashine befindet sich sowohl der IBM Application Discovery Server als auch ein Client, mit dem
+die Anwendungen analysiert werden können.

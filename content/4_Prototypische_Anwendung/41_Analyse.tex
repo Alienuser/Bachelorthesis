@@ -1,0 +1,91 @@
+\section{Analyse}
+
+\subsection{Architektur}
+Für Webseiten gibt es zahlreiche Frameworks, welche wiederum zahlreiche Architekturen umsetzen. Das MVC-Pattern hat sich
+in der Vergangenheit großflächig durchgesetzt (siehe dazu \cite{book_prototypischeanwendung_mvc}) und wird in diesem Beispiel
+verwendet.
+
+Ein großer Vertreter des MVC-Patterns ist AngularJS. Neben der schnellen Einarbeitung ist AngularJS sehr mächtig und es
+kann eine Single-Page Applications (kurz SPA) geschrieben werden. Bei diesem Web-Frontend soll es sich um eine SPA handeln.
+
+Auf der Backendseite wird ein REST-Interface entwickelt, welches die eingehenden Anfragen an die COBOL-Anwendung weiterleitet.
+Da seit kurzem ein WebSphere-Liberty-Profile für CICS existiert und dieses neben vielen Vorteilen gegenüber anderen
+Application-Servern sich noch großer Beliebtheit erfreut (siehe \cite{online_prototypischeanwendung_cicsliberty}),
+wird das REST-Interface in Java entwickelt, um das WebSphere-Liberty-Profile zu nutzen.
+
+Um einen weiteren Vorteil der Hybrid-Cloud-Architektur aufzuzeigen, soll außerdem die REST-Schnittstelle der vorliegenden
+DB2-Instanz genutzt werden. Dazu wird ein so genannter Service eingerichtet, der die Daten zurückgeben kann, welche die
+COBOL-\-Anwendung standardmäßig nicht zurückgeben kann.
+
+\subsection{Services}
+Um einen Mehrwert der Cloud aufzuzeigen, soll das Web-Frontend durch einen Cloud-Service aufgewertet werden. Dabei stehen
+neben analytischen Services in IBM Bluemix auch Watson Services zur Verfügung.
+
+Da die Anzahl der Daten in der Demo zu gering ist, entsteht kein großer Mehrwert durch analytische Services. Es wird
+deshalb der Watson Service Text2Speech eingebaut. Dieser wandelt geschriebenen Text in Sprache um. Bei der Umwandlung
+entsteht eine Audio-Datei, welche in gängigen Webbrowsern abgespielt werden kann.
+
+Der Service wird immer dann verwendet, wenn das Backend Daten an das Web-Frontent zurückgegeben hat.
+
+\subsection{Runtime}
+Um das Web-Frontend auf Bluemix laufen zu lassen, wird eine Runtime benötigt. Zur Auswahl stehen neben Cloud Foundry auch
+ein Docker-Container und der Service Object Storage.
+
+Der Object Storage Service speichert Dateien online. Diese können dann mittels statischer URL aufgerufen werden. Um eine
+AngularJS-Webseite damit zu hosten, müssen alle Dateien hochgeladen und anschließend referenziert werden. Das
+ist relativ mühsam, da eine Referenzierung in der lokalen IDE erst nach dem ersten Upload möglich ist.
+
+Alternativ kann in einem Docker Container ein Webserver laufen, welcher das Web-Frontend statisch zurückliefert.
+
+In diesem Beispiel wird ein Cloud Foundry Container verwendet. Dieser hat den Vorteil, dass er Zugriff auf die
+Cloud Foundry Environment-Variablen\footnote{https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html}
+(kurz cf env) in Bluemix hat, welche die Zugriffsinformationen für die verschiedensten Services hält.
+
+Im Cloud Foundry Container läuft ein Express Server unter NodeJS. Dies erleichtert unter anderem den Zugriff auf die
+VCAP-Variablen, welche sich in den cf env Variablen befinden.
+
+Das Backend wird in einem WebSphere-Liberty installiert, welches in einem CICS läuft. Es wird dabei das
+WebSphere-Liberty-Profile genutzt.
+
+\subsection{Smartphone App}
+Eine Möglichkeit die Smartphone-Apps zu erstellen ist es, sie nativ in der jeweiligen Sprache zu schreiben und auf dem
+Smartphone zu installieren. Das Problem ist, dass das jeweilige Smartphone dann eine VPN-Verbindung zum Mainframe-Netz
+besitzen muss, um auf das Backend zugreifen zu können. Das Öffnen des Mainframe-Netzwerkes für mehrere Endgeräte kann
+allerdings zu einer große Sicherheitslücke führen.
+
+Alternativ kann auch der Secure Gateway genutzt werden, welcher schon eine Verbindung in das Rechenzentrum hat. Dann
+müsste bei einer Änderung des Secure Gateways allerdings immer ein Update für die entsprechenden Applikationen zur
+Verfügung gestellt werden.
+
+Auch könnte eine WebViewer-App entwickelt werden. Dabei wird das Web-Frontend in einen Web-Container geladen und dem
+Nutzer suggeriert, dass es sich um eine reale App handelt. Sofern die Webseite so gestaltet ist wie eine App, fällt der
+Unterschied in den meisten Fällen nicht auf.
+
+In diesem Beispiel wird eine WebViewer-App entwickelt, da so dass schon geschriebene Web-Frontend wiederverwendet werden
+kann und sich dadurch die Entwicklungszeit und Wartung deutlich verkürzt.
+
+\subsection{Frontend-Design}
+Genau wie bei der Architektur einer Anwendung gibt es auch im Bereich Design einer Webseite zahlreiche Frameworks. Nach
+t3n \cite{online_prototypischeanwendung_cssframework} ist \path{Bootstrap} das wohl bekannteste CSS Framework.
+
+Da in diesem Beispiel allerdings auch Smartphone-Apps erstellt werden, muss das Web-Frontend eine große Ähnlichkeit zu
+diesen Apps haben. Aus diesem Grund wird Googles Material Design verwendet. Für AngularJS gibt es das Angular
+Material Plugin\footnote{https://material.angularjs.org/latest}, welches die Material-Design
+Spezifikationen\footnote{https://material.io/guidelines} von Google umsetzt.
+
+\subsection{Bestehende Anwendung}
+Um zu demonstrieren, wie ein neu geschriebenes Web-Frontend in der Cloud mit einer Anwendung auf einem Mainframe
+kommunizieren kann, wird eine schon bestehende Anwendung benötigt, welche den Bestand einer Firma repräsentieren soll.
+
+Hierfür wird eine einfach gehaltene COBOL-Anwendung verwendet, welche Daten in eine Datenbank schreiben, diese auslesen
+und verändern kann. Im folgenden \path{GenApp} genannt.
+
+Die Schnittstellen und genauen Funktionen der GenApp sind allerdings nicht bekannt und müssen in weiteren Schritten
+analysiert werden.
+
+\subsection{Qualitätssicherung}
+Damit beim regelmäßigen Bau des Quellcodes durch die Bluemix Toolchain bzw. durch UCD immer die richtige Qualität gewahrt
+werden kann, sollen für das Web-Frontend, das Java-Backend und die Smartphone-Apps automatisierte Tests geschrieben werden.
+
+Dabei wird das Web-Frontend durch PhantomJS, einem Headless Browser, getestet. Das Java-Backend und die Android-App jeweils
+mit JUnit-Tests.
